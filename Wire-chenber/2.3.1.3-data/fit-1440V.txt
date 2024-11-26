@@ -1,0 +1,30 @@
+
+reset
+
+set xlabel 'E\_gamma [ch]'
+set ylabel 'Counts'
+set xrange [700:1200]
+
+f1(x)=a11*exp(-((x-a12-880)/a13)**2/2)
+f2(x)=a21*exp(-((x-700-a22)/a23)**2/2)
+f3(x)=a31*exp(-((x-a32-850)/a33)**2/2)
+f4(x)=a41*exp(-((x-a42-950)/a43)**2/2)
+
+h(x)=f1(x)+f2(x)+f3(x)+f4(x)
+
+a11 = 400 ; a12= 10  ; a13= 15.7338
+a21 = 50 ; a22= 50 ; a23= 3.46601
+a31 = 99.5864 ; a32= 38.2787 ; a33=22.4208
+a41 = 100 ; a42= 20 ; a43=22.4208
+
+fit[820:940] f1(x) "1440V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
+
+fit[720:780] f2(x) "1440V.hist" using 1:2:($2**0.5) yerror via a21, a22, a23
+
+fit[700:1000] f3(x) "1440V.hist" using 1:2:($2**0.5) yerror via a31, a32, a33
+
+fit[1000:1200] f4(x) "1440V.hist" using 1:2:($2**0.5) yerror via a41, a42, a43
+
+fit[700:1200] h(x) "1440V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23, a31, a32, a33, a41, a42, a43
+
+plot h(x) w l lw 2, '1440V.hist' pointtype 6, f1(x) w l dt (10,5),f2(x) w l dt (10,10),f3(x) w l dt (10,20), f4(x) w l dt (10,25)
