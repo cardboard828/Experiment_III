@@ -1,30 +1,38 @@
+#このファイルをデータのあるディレクトリに入れてgnuplotでloadすることでフィティングできます
 
+#値のリセット
 reset
 
+#グラフの軸ラベル
 set xlabel 'E\_gamma [ch]'
 set ylabel 'Counts'
+#グラフのデフォルト表示定義域設定
 set xrange [720:1350]
 
+#gaussianの定義
 f1(x)=a11*exp(-((x-a12-1100)/a13)**2/2)
 f2(x)=a21*exp(-((x-880-a22)/a23)**2/2)
 f3(x)=a31*exp(-((x-a32-930)/a33)**2/2)
 f4(x)=a41*exp(-((x-1200-a42)/a43)**2/2)
 
+#合成フィット用関数
 h(x)=f1(x)+f2(x)+f3(x)+f4(x)
 
+#パラメタ初期値（最初にプロットしてこの初期パラメタをある程度いい値にするべし）
 a11 = 300 ; a12= 20  ; a13= 50
 a21 = 100 ; a22= 5 ; a23= 50
 a31 = 66 ; a32= 5 ; a33=52.4208
 a41 = 120 ; a42= 20 ; a43=50
 
+#ファイル名は適宜プロットするデータファイル名に変更するべし
+#（例えばvscodeであればファイル名の部分を選択して右クリックし，"全ての出現箇所を変更"で一発です。）
+#フィットをかける定義域も定義Gaussianっぽい領域に絞るべし
 fit[1000:1200] f1(x) "1500V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
-
 fit[880:920] f2(x) "1500V.hist" using 1:2:($2**0.5) yerror via a21, a22, a23
-
 fit[800:1100] f3(x) "1500V.hist" using 1:2:($2**0.5) yerror via a31, a32, a33
-
 fit[800:1300] f4(x) "1500V.hist" using 1:2:($2**0.5) yerror via a41, a42, a43
 
+#全体フィット
 fit[890:1300] h(x) "1500V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23, a31, a32, a33, a41, a42, a43
 
 plot h(x) w l lw 2, '1500V.hist' pointtype 6, f1(x) w l dt (10,5) lt rgb 'blue',f2(x) w l dt (10,10) lt rgb 'red',f3(x) w l dt (10,20) lt rgb 'salmon', f4(x) w l dt (10,25) lt rgb 'sea-green'
