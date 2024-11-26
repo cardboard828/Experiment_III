@@ -27,4 +27,4 @@ fit[920:1030] f4(x) "1420V.hist" using 1:2:($2**0.5) yerror via a41, a42, a43
 
 fit[680:1030] h(x) "1420V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23, a31, a32, a33, a41, a42, a43
 
-plot h(x) w l lw 2, '1420V.hist' pointtype 6, f1(x) w l dt (10,5),f2(x) w l dt (10,10),f3(x) w l dt (10,20), f4(x) w l dt (10,25)
+plot h(x) w l lw 2, '1420V.hist' pointtype 6, f1(x) w l dt (10,5) lt rgb 'blue',f2(x) w l dt (10,10) lt rgb 'red',f3(x) w l dt (10,20) lt rgb 'salmon', f4(x) w l dt (10,25) lt rgb 'sea-green'
