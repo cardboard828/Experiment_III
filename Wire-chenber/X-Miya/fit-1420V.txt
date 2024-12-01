@@ -3,7 +3,7 @@ reset
 
 set xlabel 'E\_gamma [ch]'
 set ylabel 'Counts'
-set xrange [660:1200]
+set xrange [680:1500]
 
 f1(x)=a11*exp(-((x-a12-820)/a13)**2/2)
 f2(x)=a21*exp(-((x-700-a22)/a23)**2/2)
