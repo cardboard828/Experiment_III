@@ -1,0 +1,30 @@
+
+reset
+
+set xlabel 'E\_gamma [ch]'
+set ylabel 'Counts'
+set xrange [660:1200]
+
+f1(x)=a11*exp(-((x-a12-820)/a13)**2/2)
+f2(x)=a21*exp(-((x-700-a22)/a23)**2/2)
+f3(x)=a31*exp(-((x-a32-800)/a33)**2/2)
+f4(x)=a41*exp(-((x-a42-950)/a43)**2/2)
+
+h(x)=f1(x)+f2(x)+f3(x)+f4(x)
+
+a11 = 561.992 ; a12= 6.30866  ; a13= 15.7338
+a21 = 100 ; a22= 10 ; a23= 3.46601
+a31 = 99.5864 ; a32= 38.2787 ; a33=22.4208
+a41 = 175 ; a42= 20 ; a43=22.4208
+
+fit[760:880] f1(x) "1420V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
+
+fit[680:750] f2(x) "1420V.hist" using 1:2:($2**0.5) yerror via a21, a22, a23
+
+fit[680:900] f3(x) "1420V.hist" using 1:2:($2**0.5) yerror via a31, a32, a33
+
+fit[920:1030] f4(x) "1420V.hist" using 1:2:($2**0.5) yerror via a41, a42, a43
+
+fit[680:1030] h(x) "1420V.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23, a31, a32, a33, a41, a42, a43
+
+plot h(x) w l lw 2, '1420V.hist' pointtype 6, f1(x) w l dt (10,5) lt rgb 'blue',f2(x) w l dt (10,10) lt rgb 'red',f3(x) w l dt (10,20) lt rgb 'salmon', f4(x) w l dt (10,25) lt rgb 'sea-green'
