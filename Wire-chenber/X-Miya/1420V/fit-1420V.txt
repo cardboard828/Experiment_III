@@ -14,10 +14,10 @@ h(x)=f1(x)+f2(x)
 a11 = 300 ; a12= 10  ; a13= 15.7338
 a21 = 60 ; a22= 10 ; a23= 3.46601
 
-fit[1150:1330] f1(x) "N1500V_150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
+fit[1150:1330] f1(x) "N1420_150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
 
-fit[800:1050] f2(x) "N1500V_150s.hist" using 1:2:($2**0.5) yerror via a21, a22, a23
+fit[800:1050] f2(x) "N1420_150s.hist" using 1:2:($2**0.5) yerror via a21, a22, a23
 
-fit[800:1500] h(x) "N1500V_150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23
+fit[800:1500] h(x) "N1420_150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23
 
-plot h(x) w l lw 2, 'N1500V_150s.hist' pointtype 6, f1(x) w l dt (10,5) lt rgb 'blue',f2(x) w l dt (10,10) lt rgb 'red'
+plot h(x) w l lw 2, 'N1420_150s.hist' pointtype 6, f1(x) w l dt (10,5) lt rgb 'blue',f2(x) w l dt (10,10) lt rgb 'red'
