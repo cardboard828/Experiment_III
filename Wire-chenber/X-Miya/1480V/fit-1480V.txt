@@ -1,0 +1,23 @@
+reset
+set nokey
+
+set xlabel 'E\_gamma [ch]'
+set ylabel 'Counts'
+set xrange [680:1500]
+set yrange [0:600]
+
+f1(x)=a11*exp(-((x-a12-1100)/a13)**2/2)
+f2(x)=a21*exp(-((x-870-a22)/a23)**2/2)
+
+h(x)=f1(x)+f2(x)
+
+a11 = 330 ; a12= 10  ; a13= 15.7338
+a21 = 65 ; a22= 7 ; a23= 3.46601
+
+fit[1050:1200] f1(x) "N1480V_150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
+
+fit[830:915] f2(x) "N1480V_150s.hist" using 1:2:($2**0.5) yerror via a21, a22, a23
+
+fit[800:1300] h(x) "N1480V_150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13, a21, a22, a23
+
+plot h(x) w l lw 2, 'N1480V_150s.hist' pointtype 6, f1(x) w l dt (10,5) lt rgb 'blue',f2(x) w l dt (10,10) lt rgb 'red'
