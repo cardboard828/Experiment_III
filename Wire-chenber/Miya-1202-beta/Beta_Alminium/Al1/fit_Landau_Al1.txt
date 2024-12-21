@@ -1,0 +1,18 @@
+
+#remark a11 is now the parameter of the area
+
+reset
+set nokey
+
+set xlabel 'E\_gamma [ch]'
+set ylabel 'Counts'
+set xrange [650:1700]
+set yrange [0:800]
+
+f1(x)=a11/(sqrt(2*pi))*exp(-((x-a12-860)/a13+exp(-((x-a12-860)/a13)))/2)
+
+a11 = 20000 ; a12= 10  ; a13= 100
+
+fit[750:1100] f1(x) "Al1_1500Vbeta-150s_same_as1500Vbeta.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
+
+plot f1(x) w l lw 2, 'Al1_1500Vbeta-150s_same_as1500Vbeta.hist' pointtype 6
