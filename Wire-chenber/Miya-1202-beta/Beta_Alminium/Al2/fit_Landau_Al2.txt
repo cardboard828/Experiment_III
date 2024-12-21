@@ -8,10 +8,11 @@ set xlabel 'E\_gamma [ch]'
 set ylabel 'Counts'
 set xrange [650:1700]
 set yrange [0:800]
+A=2.28447-(-1.30634)
 
-f1(x)=a11/(sqrt(2*pi)*a13)*exp(-((x-a12-860)/a13+exp(-((x-a12-860)/a13)))/2)
+f1(x)=a11/(sqrt(2*pi)*(a13/A))*exp(-((x-a12)/(a13/A)+exp(-((x-a12)/(a13/A))))/2)
 
-a11 = 200000 ; a12= 10  ; a13= 100
+a11 = 200000 ; a12= 870  ; a13= 100
 
 fit[750:1100] f1(x) "Al2_1500Vbeta-150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
 

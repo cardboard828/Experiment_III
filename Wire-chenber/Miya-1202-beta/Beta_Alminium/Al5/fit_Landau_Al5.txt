@@ -15,6 +15,6 @@ f1(x)=a11/(sqrt(2*pi)*(a13/A))*exp(-((x-a12)/(a13/A)+exp(-((x-a12)/(a13/A))))/2)
 
 a11 = 200000 ; a12= 870  ; a13= 100
 
-fit[750:1100] f1(x) "Al1_1500Vbeta-150s_same_as1500Vbeta.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
+fit[750:1100] f1(x) "Al5_1500Vbeta-150s.hist" using 1:2:($2**0.5) yerror via a11, a12, a13
 
-plot f1(x) w l lw 2, 'Al1_1500Vbeta-150s_same_as1500Vbeta.hist' pointtype 6
+plot f1(x) w l lw 2, 'Al5_1500Vbeta-150s.hist' pointtype 6
